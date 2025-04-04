@@ -1,1 +1,623 @@
-
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taller de Ventas & Marketing con IA</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --dark: #1e293b;
+            --light-bg: #f1f5f9;
+            --success: #16a34a;
+        }
+        
+        * {margin: 0; padding: 0; box-sizing: border-box;}
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header & Banners */
+        .banner {
+            background-color: var(--primary);
+            color: white;
+            text-align: center;
+            padding: 12px;
+            font-weight: 500;
+        }
+        
+        header {
+            background-color: white;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 25px;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+        }
+        
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            padding: 10px 25px;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .btn-secondary {
+            background-color: white;
+            color: var(--primary);
+            border: 1px solid var(--primary);
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding: 60px 0;
+            background-color: var(--light-bg);
+            text-align: center;
+        }
+        
+        .hero-tag {
+            display: inline-block;
+            color: var(--primary);
+            font-weight: 600;
+            padding: 5px 15px;
+            background-color: rgba(37, 99, 235, 0.1);
+            border-radius: 30px;
+            margin-bottom: 10px;
+        }
+        
+        .hero h1 {
+            font-size: 40px;
+            font-weight: 800;
+            margin-bottom: 20px;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+        
+        /* Info Bar */
+        .key-info {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            background-color: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+            margin-top: -30px;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .info-item {
+            text-align: center;
+        }
+        
+        .info-item-title {
+            font-weight: 600;
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+        
+        /* Sections */
+        section {
+            padding: 60px 0;
+        }
+        
+        .light-bg {
+            background-color: var(--light-bg);
+        }
+        
+        .section-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .section-subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 40px;
+        }
+        
+        /* Tabs for Sessions */
+        .tabs-navigation {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .tab-button {
+            padding: 12px 20px;
+            background-color: transparent;
+            border: 2px solid #eee;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        
+        .tab-button.active {
+            background-color: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        
+        .tab-pane {
+            display: none;
+        }
+        
+        .tab-pane.active {
+            display: block;
+        }
+        
+        /* Session Card */
+        .session-card {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.05);
+            padding: 30px;
+        }
+        
+        .session-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .session-title-wrapper {
+            display: flex;
+            align-items: center;
+        }
+        
+        .session-icon {
+            width: 45px;
+            height: 45px;
+            background-color: rgba(37, 99, 235, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            color: var(--primary);
+        }
+        
+        .session-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+        
+        /* Grid Layouts */
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 25px;
+        }
+        
+        .card {
+            background-color: white;
+            border-radius: 12px;
+            padding: 25px;
+            transition: all 0.3s;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.05);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 40px 0 20px;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .key-info { grid-template-columns: repeat(2, 1fr); gap: 15px; }
+            .session-content { grid-template-columns: 1fr; }
+            .grid-3 { grid-template-columns: 1fr; }
+            .nav-links { display: none; }
+            .hero-buttons { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Banner -->
+    <div class="banner">
+        Inscríbete hoy y obtén una sesión de asesoría personalizada sin costo adicional
+    </div>
+    
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <a href="#" style="text-decoration: none; color: var(--dark); font-weight: 700; font-size: 22px;">Nelson Portugal</a>
+                <div class="nav-links">
+                    <a href="#tematicas">Temario</a>
+                    <a href="#capacidades">Capacidades</a>
+                    <a href="#audiencia">Audiencia</a>
+                    <a href="#consultor">Consultor</a>
+                </div>
+                <a href="#inscripciones" class="btn btn-primary">Inscribirme</a>
+            </nav>
+        </div>
+    </header>
+    
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-tag">Primera Edición 2025</div>
+            <h1>TALLER DE VENTAS & MARKETING CON IA</h1>
+            <p style="max-width: 800px; margin: 0 auto 30px;">De la frustración a la automatización: consigue prospectos ilimitados y cierra más ventas con inteligencia artificial sin aumentar tu esfuerzo</p>
+            
+            <div class="hero-buttons">
+                <a href="#inscripciones" class="btn btn-primary">Reservar tu lugar ahora</a>
+                <a href="#tematicas" class="btn btn-secondary">Ver detalles del taller</a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Key Information Bar -->
+    <div class="container">
+        <div class="key-info">
+            <div class="info-item">
+                <div class="info-item-title">INICIO</div>
+                <div style="font-weight: 700;">Sábado 5 de abril</div>
+            </div>
+            
+            <div class="info-item">
+                <div class="info-item-title">DURACIÓN</div>
+                <div style="font-weight: 700;">4 sesiones de 3 horas</div>
+            </div>
+            
+            <div class="info-item">
+                <div class="info-item-title">HORARIO</div>
+                <div style="font-weight: 700;">9:00am a 12:00pm</div>
+            </div>
+            
+            <div class="info-item">
+                <div class="info-item-title">MODALIDAD</div>
+                <div style="font-weight: 700;">Online vía Zoom</div>
+            </div>
+            
+            <div class="info-item">
+                <div class="info-item-title">INVERSIÓN</div>
+                <div style="color: var(--primary); font-weight: 700;">Consultar</div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Curriculum Section -->
+    <section id="tematicas" class="light-bg">
+        <div class="container">
+            <h2 class="section-title">EJES TEMÁTICOS DEL TALLER</h2>
+            <p class="section-subtitle">Esto es lo que conocerás, implementarás y dominarás en el transcurso de las cuatro sesiones</p>
+            
+            <div style="max-width: 800px; margin: 0 auto;">
+                <div class="tabs-navigation">
+                    <button class="tab-button active" onclick="changeTab('session1')">Sesión 1</button>
+                    <button class="tab-button" onclick="changeTab('session2')">Sesión 2</button>
+                    <button class="tab-button" onclick="changeTab('session3')">Sesión 3</button>
+                    <button class="tab-button" onclick="changeTab('session4')">Sesión 4</button>
+                </div>
+                
+                <div class="tabs-content">
+                    <!-- Session 1 -->
+                    <div class="tab-pane active" id="session1">
+                        <div class="session-card">
+                            <div class="session-header">
+                                <div class="session-title-wrapper">
+                                    <div class="session-icon">
+                                        <i class="fas fa-search"></i>
+                                    </div>
+                                    <div>
+                                        <h3 style="margin-bottom: 5px;">Automatización de la prospección</h3>
+                                        <div>Sábado 5 de abril | 9:00am a 12:00pm</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <p style="font-weight: 600; color: #666; margin-bottom: 20px;">Obtén prospectos calificados de forma automática sin esfuerzo manual</p>
+                            
+                            <div class="session-content">
+                                <div>
+                                    <h4 style="margin-bottom: 15px; border-bottom: 2px solid #eee; padding-bottom: 8px;">Lo que aprenderás:</h4>
+                                    <ul style="list-style-type: none; padding-left: 0;">
+                                        <li style="margin-bottom: 12px; padding-left: 25px; position: relative;">
+                                            <span style="position: absolute; left: 0; color: var(--primary); font-weight: bold;">•</span> 
+                                            Diseña mensajes de alto impacto que abren puertas
+                                        </li>
+                                        <li style="margin-bottom: 12px; padding-left: 25px; position: relative;">
+                                            <span style="position: absolute; left: 0; color: var(--primary); font-weight: bold;">•</span> 
+                                            Configura sistemas para atraer prospectos calificados automáticamente
+                                        </li>
+                                        <li style="margin-bottom: 12px; padding-left: 25px; position: relative;">
+                                            <span style="position: absolute; left: 0; color: var(--primary); font-weight: bold;">•</span> 
+                                            Implementa secuencias de contacto que generan respuestas positivas
+                                        </li>
+                                    </ul>
+                                </div>
+                                
+                                <div>
+                                    <h4 style="margin-bottom: 15px; border-bottom: 2px solid #eee; padding-bottom: 8px;">Resultados inmediatos:</h4>
+                                    <ul style="list-style-type: none; padding-left: 0;">
+                                        <li style="margin-bottom: 12px; padding-left: 25px; position: relative;">
+                                            <span style="position: absolute; left: 0; color: var(--primary); font-weight: bold;">•</span> 
+                                            Tendrás una fuente constante de prospectos calificados
+                                        </li>
+                                        <li style="margin-bottom: 12px; padding-left: 25px; position: relative;">
+                                            <span style="position: absolute; left: 0; color: var(--primary); font-weight: bold;">•</span> 
+                                            Reducirás el tiempo invertido en buscar clientes
+                                        </li>
+                                        <li style="margin-bottom: 12px; padding-left: 25px; position: relative;">
+                                            <span style="position: absolute; left: 0; color: var(--primary); font-weight: bold;">•</span> 
+                                            Multiplicarás tu efectividad en el primer contacto
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Other sessions hidden by default -->
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Capabilities Section -->
+    <section id="capacidades">
+        <div class="container">
+            <h2 class="section-title">CAPACIDADES QUE DESARROLLARÁS</h2>
+            <p class="section-subtitle">Herramientas y habilidades prácticas que implementarás durante el taller</p>
+            
+            <div class="grid-3">
+                <div class="card" style="text-align: center;">
+                    <div style="font-size: 32px; color: var(--primary); margin-bottom: 15px;">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <div style="font-weight: 600;">Páginas web en minutos</div>
+                </div>
+                
+                <div class="card" style="text-align: center;">
+                    <div style="font-size: 32px; color: var(--primary); margin-bottom: 15px;">
+                        <i class="fas fa-video"></i>
+                    </div>
+                    <div style="font-weight: 600;">Videos con avatares digitales</div>
+                </div>
+                
+                <div class="card" style="text-align: center;">
+                    <div style="font-size: 32px; color: var(--primary); margin-bottom: 15px;">
+                        <i class="fab fa-whatsapp"></i>
+                    </div>
+                    <div style="font-weight: 600;">Automatización de WhatsApp</div>
+                </div>
+                
+                <div class="card" style="text-align: center;">
+                    <div style="font-size: 32px; color: var(--primary); margin-bottom: 15px;">
+                        <i class="fas fa-file-powerpoint"></i>
+                    </div>
+                    <div style="font-weight: 600;">Brochures y presentaciones</div>
+                </div>
+                
+                <div class="card" style="text-align: center;">
+                    <div style="font-size: 32px; color: var(--primary); margin-bottom: 15px;">
+                        <i class="fab fa-linkedin"></i>
+                    </div>
+                    <div style="font-weight: 600;">Contactos por LinkedIn</div>
+                </div>
+                
+                <div class="card" style="text-align: center;">
+                    <div style="font-size: 32px; color: var(--primary); margin-bottom: 15px;">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div style="font-weight: 600;">Emails masivos personalizados</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Target Audience Section -->
+    <section id="audiencia" class="light-bg">
+        <div class="container">
+            <h2 class="section-title">A QUIÉN VA DIRIGIDO</h2>
+            <p class="section-subtitle">Los profesionales y negocios que se benefician de este taller</p>
+            
+            <div class="grid-3">
+                <div class="card">
+                    <div style="font-size: 28px; color: var(--primary); margin-bottom: 15px;">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                    <h3 style="margin-bottom: 10px;">Consultorías y servicios profesionales</h3>
+                    <p style="color: #666;">Consultores, coaches, abogados, contadores y profesionales independientes.</p>
+                </div>
+                
+                <div class="card">
+                    <div style="font-size: 28px; color: var(--primary); margin-bottom: 15px;">
+                        <i class="fas fa-building"></i>
+                    </div>
+                    <h3 style="margin-bottom: 10px;">Servicios empresariales B2B</h3>
+                    <p style="color: #666;">Empresas que venden a otras empresas y necesitan generar leads cualificados.</p>
+                </div>
+                
+                <div class="card">
+                    <div style="font-size: 28px; color: var(--primary); margin-bottom: 15px;">
+                        <i class="fas fa-store"></i>
+                    </div>
+                    <h3 style="margin-bottom: 10px;">Tiendas y comercio minorista</h3>
+                    <p style="color: #666;">Negocios de venta directa que buscan aumentar su visibilidad.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Instructor Section -->
+    <section id="consultor">
+        <div class="container">
+            <h2 class="section-title">CONSULTOR A CARGO</h2>
+            
+            <div style="display: flex; gap: 40px; margin-top: 40px; flex-wrap: wrap;">
+                <div style="flex: 1; min-width: 300px; text-align: center;">
+                    <div style="width: 200px; height: 200px; background-color: #eee; border-radius: 10px; margin: 0 auto;">
+                        <!-- Imagen de perfil o placeholder -->
+                    </div>
+                </div>
+                
+                <div style="flex: 2; min-width: 300px;">
+                    <h3 style="font-size: 24px; margin-bottom: 15px;">Nelson Portugal</h3>
+                    
+                    <p style="margin-bottom: 15px;">Consultor en desarrollo personal, autor del libro El Círculo de Crecimiento y especialista en el diseño de programas formativos dirigidos a jefes, gerentes y propietarios(as) de empresas.</p>
+                    
+                    <ul style="padding-left: 0; list-style-type: none;">
+                        <li style="margin-bottom: 10px; padding-left: 25px; position: relative;">
+                            <span style="position: absolute; left: 0; color: var(--success);">✓</span>
+                            Ha asesorado a profesionales de empresas como Cosapi, Minsur, Huawei, Entel, y otras.
+                        </li>
+                        <li style="margin-bottom: 10px; padding-left: 25px; position: relative;">
+                            <span style="position: absolute; left: 0; color: var(--success);">✓</span>
+                            Administrador de profesión por la UPC.
+                        </li>
+                        <li style="margin-bottom: 10px; padding-left: 25px; position: relative;">
+                            <span style="position: absolute; left: 0; color: var(--success);">✓</span>
+                            Complementó su formación en Harvard Business School.
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Inscriptions -->
+    <section id="inscripciones" style="background-color: var(--primary); color: white; text-align: center;">
+        <div class="container">
+            <h2 style="margin-bottom: 20px;">INSCRIPCIONES</h2>
+            <p style="max-width: 800px; margin: 0 auto 40px;">No esperes más para multiplicar tus resultados con la inteligencia artificial</p>
+            
+            <div style="background-color: white; color: black; padding: 30px; border-radius: 12px; max-width: 600px; margin: 0 auto; text-align: left;">
+                <h3 style="color: var(--primary); margin-bottom: 20px; text-align: center;">Reserva tu lugar ahora</h3>
+                
+                <div style="margin-bottom: 15px;">
+                    <div style="font-weight: 600; margin-bottom: 5px;">Email:</div>
+                    <div>nportugal@trasciende.la</div>
+                </div>
+                
+                <div style="margin-bottom: 15px;">
+                    <div style="font-weight: 600; margin-bottom: 5px;">WhatsApp:</div>
+                    <div>+51902384279</div>
+                </div>
+                
+                <div style="margin-bottom: 15px;">
+                    <div style="font-weight: 600; margin-bottom: 5px;">PayPal:</div>
+                    <a href="https://www.paypal.com/ncp/payment/5FW2C68TJNT8N" style="color: var(--primary); text-decoration: none;">Link de pago PayPal</a>
+                </div>
+                
+                <div style="margin-bottom: 15px;">
+                    <div style="font-weight: 600; margin-bottom: 5px;">Yape:</div>
+                    <div>920384279 (A nombre de Portugal Research International)</div>
+                </div>
+                
+                <div style="margin-bottom: 15px;">
+                    <div style="font-weight: 600; margin-bottom: 5px;">Plin:</div>
+                    <div>920384279 (A nombre de Nelson Portugal)</div>
+                </div>
+                
+                <div style="text-align: center; margin-top: 25px;">
+                    <a href="https://www.paypal.com/ncp/payment/5FW2C68TJNT8N" class="btn btn-primary">¡Inscríbete ahora!</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 40px; margin-bottom: 30px;">
+                <div>
+                    <h4 style="font-size: 18px; margin-bottom: 15px;">Contacto</h4>
+                    <p>Email: nportugal@trasciende.la</p>
+                    <p>WhatsApp: +51 902384279</p>
+                </div>
+                
+                <div>
+                    <h4 style="font-size: 18px; margin-bottom: 15px;">Enlaces</h4>
+                    <p><a href="#tematicas" style="color: white; text-decoration: none;">Temario</a></p>
+                    <p><a href="#capacidades" style="color: white; text-decoration: none;">Capacidades</a></p>
+                    <p><a href="#audiencia" style="color: white; text-decoration: none;">Audiencia</a></p>
+                </div>
+            </div>
+            
+            <div style="text-align: center; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1);">
+                <p>© 2025 Portugal Research International. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        function changeTab(tabId) {
+            // Hide all tab panes
+            document.querySelectorAll('.tab-pane').forEach(pane => {
+                pane.classList.remove('active');
+            });
+            
+            // Deactivate all tab buttons
+            document.querySelectorAll('.tab-button').forEach(button => {
+                button.classList.remove('active');
+            });
+            
+            // Activate the selected tab pane
+            document.getElementById(tabId).classList.add('active');
+            
+            // Activate the clicked tab button
+            event.target.classList.add('active');
+        }
+    </script>
+</body>
+</html>
